@@ -34,4 +34,4 @@ The primary objectives of this project are as follows:
 3. Incentive System: Introduced bonuses, recognition, and micro-payments to encourage user engagement and contributions.
 
 ### Acknowledgments
-This project is part of the BSc Computer Science tasks at the University of West London. Special thanks to Hill & Knowlton for providing the case study and insights.
+This project is part of the BSc Computer Science tasks at the University of West London. 
