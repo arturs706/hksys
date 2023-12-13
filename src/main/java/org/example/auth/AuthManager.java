@@ -2,7 +2,7 @@ package org.example.auth;
 
 // Receiver
 public class AuthManager {
-    public void registerUser(String username, String password, UserType userType) {
+    public void registerUser(String username, String mobilePhone, String password, UserType userType) {
         // Logic for user registration
         System.out.println("User registered: " + username + ", UserType: " + userType);
     }

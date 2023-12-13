@@ -7,7 +7,9 @@ import org.example.dbconn.PGImpl;
 import org.example.dbconn.RefinedDBConn;
 import org.example.passwordgen.*;
 import org.example.usercomponent.Client;
+import org.example.usercomponent.Employee;
 import java.sql.SQLException;
+import java.util.UUID;
 
 
 //pass the sql queries to the reg
@@ -24,22 +26,36 @@ public class HKManagmentSys {
 
         // Create a RefinedDBConn with the PostgreSQL implementation
         DBConn dbConn = new RefinedDBConn(pgInstance);
+        dbConn.connect();
+
         Client client = new Client.ClientBuilder("client@example.com", "password123")
                 .contactNr("123456789")
                 .build();
-        HashInvoker hashInvoker = PasswdGen.createHashInvoker();
-        String resultHashedPass = hashInvoker.generateHash(client.getPasswd());
 
-        dbConn.connect();
-        AuthCommand registerCommand = RegisterCommand.create(client.getEmailAddr(), resultHashedPass, UserType.CLIENT);
+        Employee employee = new Employee.EmployeeBuilder("employee@example.com", "password123")
+                .contactNr("123456789")
+                .build();
+
+        HashInvoker hashInvoker = PasswdGen.createHashInvoker();
+        String resultHashedPass = hashInvoker.generateHash(employee.getPasswd());
+
+
+        AuthCommand registerCommand = RegisterCommand.create(
+                employee.getEmailAddr(),
+                employee.getContactNr(),
+                resultHashedPass,
+                UserType.EMPLOYEE
+        );
         AuthInvoker invoker = new AuthInvoker();
-        dbConn.executeQuery("INSERT INTO employees VALUES ('john_doe', 'password123', 'CLIENT')");
+        String string = String.format("INSERT INTO employees VALUES ('%s', '%s', '%s', '%s')",
+                employee.getEmployeeId(),
+                employee.getEmailAddr(),
+                employee.getContactNr(),
+                resultHashedPass);
+        dbConn.executeQuery(string);
         invoker.registerUser(registerCommand);
         dbConn.disconnect();
-
-
         AuthCommand loginCommand = LoginCommand.create("john_doe", "password123");
         invoker.loginUser(loginCommand);
     }
 }
-

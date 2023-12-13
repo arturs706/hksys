@@ -3,27 +3,35 @@ package org.example.auth;
 // Concrete Command - RegisterCommand
 public class RegisterCommand implements AuthCommand {
     private AuthManager authManager;
-    private String username;
+    private String email;
+    private String mobilePhone;
     private String password;
     private UserType userType;
 
     // Private constructor to enforce the use of the factory method
-    private RegisterCommand(AuthManager authManager, String username, String password, UserType userType) {
+    private RegisterCommand(AuthManager authManager, String email, String mobilePhone, String password, UserType userType) {
         this.authManager = authManager;
-        this.username = username;
+        this.email = email;
+        this.mobilePhone = mobilePhone;
         this.password = password;
         this.userType = userType;
     }
+//client.getEmailAddr(),
+//        client.getContactNr(),
+//    resultHashedPass,
+//    UserType.CLIENT
+
 
     // Factory method to create an instance of RegisterCommand
-    public static RegisterCommand create(String username, String password, UserType userType) {
+    public static RegisterCommand create(String email, String mobilePhone, String password, UserType userType) {
         AuthManager authManager = new AuthManager();
-        return new RegisterCommand(authManager, username, password, userType);
+        return new RegisterCommand(authManager, email, mobilePhone, password, userType);
     }
 
 
     @Override
     public void authExecute() {
-        authManager.registerUser(username, password, userType);
+
+        authManager.registerUser(email, mobilePhone, password, userType);
     }
 }

@@ -1,5 +1,7 @@
 package org.example.dbconn;
 
+import org.example.auth.UserType;
+
 // Abstraction class
 public abstract class DBConn {
 
@@ -14,4 +16,6 @@ public abstract class DBConn {
     public abstract void executeQuery(String query);
 
     public abstract void disconnect();
+
+
 }
