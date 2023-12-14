@@ -7,6 +7,9 @@ import org.example.dbconn.PGImpl;
 import org.example.dbconn.RefinedDBConn;
 import org.example.passwordgen.*;
 import org.example.project.*;
+import org.example.tasks.TaskInvoker;
+import org.example.tasks.TaskReceiver;
+import org.example.tasks.UpdateTask;
 import org.example.usercomponent.Client;
 import org.example.usercomponent.Employee;
 import java.sql.SQLException;
@@ -85,6 +88,13 @@ public class HKManagmentSys {
 
         // Execute Commands
         invoker.executeCommands();
+
+        TaskReceiver taskReceiver = new TaskReceiver();
+        TaskInvoker taskInvoker = new TaskInvoker();
+
+        UpdateTask updateTask = new UpdateTask(taskReceiver, UUID.randomUUID());
+        taskInvoker.addCommand(updateTask);
+        taskInvoker.executeCommands();
 
     }
 }
