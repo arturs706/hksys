@@ -64,19 +64,39 @@ public class HKManagmentSys {
 //        AuthCommand loginCommand = LoginCommand.create("john_doe", "password123");
 //        invoker.loginUser(loginCommand);
 //
+
+
+
+
         ProjReceiver receiver = new ProjReceiver();
 
         // Create Invoker
         ProjInvoker invoker = new ProjInvoker();
 
         // Create Commands
-        AddProjectCommand addProjectCommand = new AddProjectCommand(receiver, "Project1", "Description", new Date(), "In Progress", new ArrayList<>(), new ArrayList<>());
+        AddProjectCommand addProjectCommand = new AddProjectCommand(receiver,
+                "Project1",
+                "Description",
+                new Date(),
+                "In Progress",
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
         RemoveProjectCommand removeProjectCommand = new RemoveProjectCommand(receiver, UUID.randomUUID());
         RetrieveProjectCommand retrieveProjectCommand = new RetrieveProjectCommand(receiver, UUID.randomUUID());
         updateStatus updateStatusCommand = new updateStatus(receiver, UUID.randomUUID());
         removeClient removeClient = new removeClient(receiver, UUID.randomUUID());
         EditDescription editDescription = new EditDescription(receiver, "Description");
         addClient addClient = new addClient(receiver, "Jonathan", new ArrayList<>());
+
+
+
+
+
+
+
+
+
         // Add Commands to Invoker
         invoker.addCommand(editDescription);
         invoker.addCommand(removeClient);
