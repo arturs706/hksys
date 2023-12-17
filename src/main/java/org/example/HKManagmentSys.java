@@ -6,7 +6,6 @@ import org.example.dbconn.DBConn;
 import org.example.dbconn.PGImpl;
 import org.example.dbconn.RefinedDBConn;
 import org.example.passwordgen.*;
-import org.example.project.*;
 import org.example.tasks.TaskInvoker;
 import org.example.tasks.TaskReceiver;
 import org.example.tasks.UpdateTask;
@@ -14,8 +13,7 @@ import org.example.test.AddProjectOperation;
 import org.example.test.ProjectInvoker;
 import org.example.test.ProjectReceiver;
 import org.example.text.ProjectOperationExecutor;
-import org.example.text.TextFile;
-import org.example.text.TextFileOperationExecutor;
+
 import org.example.usercomponent.Client;
 import org.example.usercomponent.Employee;
 import java.sql.SQLException;
