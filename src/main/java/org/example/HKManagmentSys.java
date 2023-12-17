@@ -1,24 +1,12 @@
 package org.example;
 
-import io.github.cdimascio.dotenv.Dotenv;
-import org.example.auth.*;
-import org.example.dbconn.DBConn;
-import org.example.dbconn.PGImpl;
-import org.example.dbconn.RefinedDBConn;
-import org.example.passwordgen.*;
-import org.example.tasks.TaskInvoker;
-import org.example.tasks.TaskReceiver;
-import org.example.tasks.UpdateTask;
-import org.example.test.AddProjectOperation;
-import org.example.test.ProjectInvoker;
-import org.example.test.ProjectReceiver;
-import org.example.text.ProjectOperationExecutor;
+import org.example.project.ActionCommand;
+import org.example.project.ProjCommand;
+import org.example.project.ProjInvoker;
+import org.example.project.ProjReceiver;
 
-import org.example.usercomponent.Client;
-import org.example.usercomponent.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
 
 
@@ -105,15 +93,6 @@ public class HKManagmentSys {
 //        textFileOperationExecutor.executeOperation(textFile::save);
 //
 
-        //INVOKER = INVOKER
-        ProjectOperationExecutor projectOperationExecutor
-                = new ProjectOperationExecutor();
-        //RECEIVER == RECEIVER
-        ProjectReceiver receiver = new ProjectReceiver();
-        //INVOKER.
-        projectOperationExecutor.executeOperation(receiver::addProject);
-        projectOperationExecutor.executeOperation(receiver::addClient);
-
 
         // Add Commands to Invoker
 //        invoker.addCommand(editDescription);
@@ -133,6 +112,39 @@ public class HKManagmentSys {
 //        UpdateTask updateTask = new UpdateTask(taskReceiver, UUID.randomUUID());
 //        taskInvoker.addCommand(updateTask);
 //        taskInvoker.executeCommands();
+
+// Create Invoker
+    ProjInvoker invoker = new ProjInvoker();
+
+// Create Receiver
+    ProjReceiver receiver = new ProjReceiver();
+
+// Create Commands using ActionCommand
+    ActionCommand addProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, "AddProject", "SQL QUERY")
+            .projectId(UUID.randomUUID())
+            .description("Project1")
+            .clientDetails(new ArrayList<>())
+            .build();
+
+    ActionCommand removeProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, "RemoveProject", "SQL QUERY")
+            .projectId(UUID.randomUUID())
+            .build();
+
+    ActionCommand retrieveProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, "RetrieveProject", "SQL QUERY")
+            .projectId(UUID.randomUUID())
+            .build();
+
+    ActionCommand editDescription = new ActionCommand.ActionCommandBuilder(receiver, "EditDescription", "SQL QUERY")
+            .projectId(UUID.randomUUID())
+            .build();
+// Add commands to Invoker
+        invoker.addCommand(addProjectCommand);
+        invoker.addCommand(removeProjectCommand);
+        invoker.addCommand(retrieveProjectCommand);
+        invoker.addCommand(editDescription);
+
+// Execute commands
+        invoker.executeCommands();
 
     }
 }
