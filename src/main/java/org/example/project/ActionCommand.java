@@ -1,8 +1,5 @@
 package org.example.project;
 
-
-import org.example.project.ProjCommand;
-import org.example.project.ProjReceiver;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,23 +29,21 @@ public class ActionCommand implements ProjCommand {
 
     // Builder class for ActionCommand
     public static class ActionCommandBuilder {
-        private String SQLQuery;
         private ProjReceiver receiver;
         private String action;
         private UUID projectId;
         private String description;
         private List<String> clientDetails;
+        private String SQLQuery;
 
-        public ActionCommandBuilder(ProjReceiver receiver, String action, String SQLQuery) {
+
+        public ActionCommandBuilder(ProjReceiver receiver, UUID projectId, String action, String SQLQuery) {
+            this.projectId = projectId;
             this.receiver = receiver;
             this.action = action;
             this.SQLQuery = SQLQuery;
         }
 
-        public ActionCommandBuilder projectId(UUID projectId) {
-            this.projectId = projectId;
-            return this;
-        }
 
         public ActionCommandBuilder description(String description) {
             this.description = description;

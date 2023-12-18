@@ -7,16 +7,16 @@ public class ProjReceiver {
 
     public void executeCommand(String action, UUID projectId, String description, List<String> clientDetails, String sqlQuery) {
         switch (action) {
-            case "AddProject":
+            case "ADDPROJECT":
                 addProject();
                 break;
-            case "RemoveProject":
+            case "REMOVEPROJECT":
                 removeProject();
                 break;
-            case "RetrieveProject":
+            case "RETRIEVEPROJECT":
                 retrieveProject();
                 break;
-            case "EditDescription":
+            case "EDITDESCRIPTION":
                 editDescription();
                 break;
             default:
