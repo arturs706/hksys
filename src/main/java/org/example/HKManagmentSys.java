@@ -1,12 +1,18 @@
 package org.example;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.example.auth.*;
 import org.example.dbconn.DBConn;
 import org.example.dbconn.PGImpl;
 import org.example.dbconn.RefinedDBConn;
+import org.example.passwordgen.HashInvoker;
+import org.example.passwordgen.PasswdGen;
 import org.example.project.ActionCommand;
 import org.example.project.ProjInvoker;
 import org.example.project.ProjReceiver;
+import org.example.usercomponent.Client;
+import org.example.usercomponent.Employee;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -33,95 +39,38 @@ public class HKManagmentSys {
         DBConn dbConn = new RefinedDBConn(pgInstance);
         dbConn.connect();
 //
-//        Client client = new Client.ClientBuilder("client@example.com", "password123")
-//                .contactNr("123456789")
-//                .build();
+        Client client = new Client.ClientBuilder("client@example.com", "password123")
+                .contactNr("123456789")
+                .build();
 //
-//        Employee employee = new Employee.EmployeeBuilder("employee@example.com", "password123")
-//                .contactNr("123456789")
-//                .build();
-//
-//        HashInvoker hashInvoker = PasswdGen.createHashInvoker();
-//        String resultHashedPass = hashInvoker.generateHash(employee.getPasswd());
-//
-//
-//        AuthCommand registerCommand = RegisterCommand.create(
-//                employee.getEmailAddr(),
-//                employee.getContactNr(),
-//                resultHashedPass,
-//                UserType.EMPLOYEE
-//        );
-//        AuthInvoker invoker = new AuthInvoker();
-//        String string = String.format("INSERT INTO employees VALUES ('%s', '%s', '%s', '%s')",
-//                employee.getEmployeeId(),
-//                employee.getEmailAddr(),
-//                employee.getContactNr(),
-//                resultHashedPass);
-//        dbConn.executeQuery(string);
-//        invoker.registerUser(registerCommand);
-//        dbConn.disconnect();
-//        AuthCommand loginCommand = LoginCommand.create("john_doe", "password123");
-//        invoker.loginUser(loginCommand);
-//
+        Employee employee = new Employee.EmployeeBuilder("employee@example.com", "password123")
+                .contactNr("123456789")
+                .build();
+
+        HashInvoker hashInvoker = PasswdGen.createHashInvoker();
+        String resultHashedPass = hashInvoker.generateHash(employee.getPasswd());
 
 
-
-
-//        ProjReceiver receiver = new ProjReceiver();
-//
-//        // Create Invoker
-//        ProjInvoker invoker = new ProjInvoker();
-//
-//        // Create Commands
-//        AddProjectCommand addProjectCommand = new AddProjectCommand(receiver,
-//                "Project1",
-//                "Description",
-//                new Date(),
-//                "In Progress",
-//                new ArrayList<>(),
-//                new ArrayList<>()
-//        );
-//        RemoveProjectCommand removeProjectCommand = new RemoveProjectCommand(receiver, UUID.randomUUID());
-//        RetrieveProjectCommand retrieveProjectCommand = new RetrieveProjectCommand(receiver, UUID.randomUUID());
-//        updateStatus updateStatusCommand = new updateStatus(receiver, UUID.randomUUID());
-//        removeClient removeClient = new removeClient(receiver, UUID.randomUUID());
-//        EditDescription editDescription = new EditDescription(receiver, "Description");
-//        addClient addClient = new addClient(receiver, "Jonathan", new ArrayList<>());
-//
-
-
-//        projectInvoker.executeOperation(projectTestReceived::addProject);
-        //The Invoker Class
-//        TextFileOperationExecutor textFileOperationExecutor
-//                = new TextFileOperationExecutor();
-        // receiver class
-//        TextFile textFile = new TextFile("file1.txt");
-//        textFileOperationExecutor.executeOperation(textFile::open);
-//        textFileOperationExecutor.executeOperation(textFile::save);
-//
-
-
-        // Add Commands to Invoker
-//        invoker.addCommand(editDescription);
-//        invoker.addCommand(removeClient);
-//        invoker.addCommand(addProjectCommand);
-//        invoker.addCommand(removeProjectCommand);
-//        invoker.addCommand(retrieveProjectCommand);
-//        invoker.addCommand(updateStatusCommand);
-//        invoker.addCommand(addClient);
-//
-//        // Execute Commands
-//        invoker.executeCommands();
-//
-//        TaskReceiver taskReceiver = new TaskReceiver();
-//        TaskInvoker taskInvoker = new TaskInvoker();
-//
-//        UpdateTask updateTask = new UpdateTask(taskReceiver, UUID.randomUUID());
-//        taskInvoker.addCommand(updateTask);
-//        taskInvoker.executeCommands();
+        AuthCommand registerCommand = RegisterCommand.create(
+                employee.getEmailAddr(),
+                employee.getContactNr(),
+                resultHashedPass,
+                UserType.EMPLOYEE
+        );
+        AuthInvoker invoker = new AuthInvoker();
+        String string = String.format("INSERT INTO employees VALUES ('%s', '%s', '%s', '%s')",
+                employee.getEmployeeId(),
+                employee.getEmailAddr(),
+                employee.getContactNr(),
+                resultHashedPass);
+        dbConn.executeQuery(string);
+        invoker.registerUser(registerCommand);
+        dbConn.disconnect();
+        AuthCommand loginCommand = LoginCommand.create("john_doe", "password123");
+        invoker.loginUser(loginCommand);
 
 // Create Invoker
-    ProjInvoker invoker = new ProjInvoker();
+    ProjInvoker projectInvoker = new ProjInvoker();
 
 // Create Receiver
     ProjReceiver receiver = new ProjReceiver();
@@ -157,13 +106,13 @@ public class HKManagmentSys {
             "SQL QUERY")
             .build();
 // Add commands to Invoker
-        invoker.addCommand(addProjectCommand);
-        invoker.addCommand(removeProjectCommand);
-        invoker.addCommand(retrieveProjectCommand);
-        invoker.addCommand(editDescription);
+        projectInvoker.addCommand(addProjectCommand);
+        projectInvoker.addCommand(removeProjectCommand);
+        projectInvoker.addCommand(retrieveProjectCommand);
+        projectInvoker.addCommand(editDescription);
 
 // Execute commands
-        invoker.executeCommands();
+        projectInvoker.executeCommands();
 
     }
 }
