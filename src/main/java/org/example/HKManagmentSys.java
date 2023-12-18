@@ -127,18 +127,34 @@ public class HKManagmentSys {
     ProjReceiver receiver = new ProjReceiver();
 
 // Create Commands using ActionCommand
-    ActionCommand addProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, UUID.randomUUID(),ADDPROJECT, "SQL QUERY")
+    ActionCommand addProjectCommand = new ActionCommand.ActionCommandBuilder(
+            receiver,
+            UUID.randomUUID(),
+            ADDPROJECT,
+            "SQL QUERY")
             .description("Project1")
             .clientDetails(new ArrayList<>())
             .build();
 
-    ActionCommand removeProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, UUID.randomUUID(), REMOVEPROJECT, "SQL QUERY")
+    ActionCommand removeProjectCommand = new ActionCommand.ActionCommandBuilder(
+            receiver,
+            UUID.randomUUID(),
+            REMOVEPROJECT,
+            "SQL QUERY")
             .build();
 
-    ActionCommand retrieveProjectCommand = new ActionCommand.ActionCommandBuilder(receiver, UUID.randomUUID(), RETRIEVEPROJECT, "SQL QUERY")
+    ActionCommand retrieveProjectCommand = new ActionCommand.ActionCommandBuilder(
+            receiver,
+            UUID.randomUUID(),
+            RETRIEVEPROJECT,
+            "SQL QUERY")
             .build();
 
-    ActionCommand editDescription = new ActionCommand.ActionCommandBuilder(receiver, UUID.randomUUID(), EDITDESCRIPTION, "SQL QUERY")
+    ActionCommand editDescription = new ActionCommand.ActionCommandBuilder(
+            receiver,
+            UUID.randomUUID(),
+            EDITDESCRIPTION,
+            "SQL QUERY")
             .build();
 // Add commands to Invoker
         invoker.addCommand(addProjectCommand);
