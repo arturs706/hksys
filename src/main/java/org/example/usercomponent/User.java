@@ -34,7 +34,6 @@ public abstract class User {
     }
 
     protected void setPasswd(String passwd) {
-
         this.passwd = passwd;
     }
 

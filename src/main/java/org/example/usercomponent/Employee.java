@@ -45,7 +45,7 @@ public class Employee extends User {
         }
 
         public EmployeeBuilder fullName(String full_name) {
-            this.full_name = contact_nr;
+            this.full_name = full_name;
             return this;
         }
 

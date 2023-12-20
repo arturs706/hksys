@@ -32,7 +32,7 @@ The primary objectives of this project, now enhanced with RabbitMQ integration, 
 1. Email Organization: Implemented a solution for organizing and searching through project-related emails efficiently.
 2. Customization: Tailored hk.net for each client, allowing personalized access to relevant information.
 3. Incentive System: Introduced bonuses, recognition, and micro-payments to encourage user engagement and contributions.
-4. RabbitMQ Integration: Implemented RabbitMQ as a message broker to enable Microservices Architecture (MSA) for enhanced communication and scalability.
+4. RabbitMQ Integration: Implemented RabbitMQ as a message broker for enhanced communication and scalability.
 
 ### Acknowledgments
 This project is part of the BSc Computer Science tasks at the University of West London, showcasing the successful integration of RabbitMQ to achieve a robust and efficient Knowledge Management System.
